@@ -16,33 +16,83 @@ Game::~Game()
 {
     delete pWindow_;
 	delete pPlayer_;
+    for (Bullet* pCur : bullets_)
+    {
+        delete pCur;
+    }
+    for (Enemy* e : enemies_)
+    {
+        delete e;
+    }
 }
 
 void Game::update()
 {
-	updatePlayer();
+    pPlayer_->update();
+
+    updateBullets();
+
+    updateEnemies();
 }
 
-void Game::updatePlayer()
+void Game::updateBullets()
 {
-    // Move player up or down
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) pPlayer_->move(0.F, -1.F);
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S)) pPlayer_->move(0.F, 1.F);
+    // Move existing Bullets
+    for (int i = static_cast<int>(bullets_.size()) - 1; i >= 0; i--)
+    {
+        Bullet* pCur = bullets_[i];
 
-	// Move player left or right
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) pPlayer_->move(-1.F, 0.F);
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) pPlayer_->move(1.F, 0.F);
+        // Move
+        pCur->move();
 
-	
+        // Border Collision Detection
+        if (pCur->getPosition().y + pCur->getBounds().size.y <= 0.F || // top
+            pCur->getPosition().y > static_cast<float>(pWindow_->getSize().y) || // bottom
+            pCur->getPosition().x + pCur->getBounds().size.x <= 0.F || // left
+            pCur->getPosition().x  > static_cast<float>(pWindow_->getSize().x) // right
+            )
+        {
+            // delete
+            bullets_.erase(bullets_.begin() + i);
+            delete pCur;
+        }
+    }
+
+    // Spawn new Bullet
+	if (pPlayer_->canAttack() && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) // TODO enprellung 
+	{
+		bullets_.push_back(
+            new Bullet(pPlayer_->getPosition().x, pPlayer_->getPosition().y, sf::Vector2f(0.F, -1.F), 5.F)
+        );
+	}
+}
+
+void Game::updateEnemies() // TODO
+{
+    
 }
 
 void Game::render()
 {
+    // Clear
     pWindow_->clear();
     
-    // draw game objects    
+    /*
+        draw game objects
+    */
 	pPlayer_->render(*pWindow_);
 
+    for (Bullet* b : bullets_)
+    {
+		b->render(*pWindow_);
+    }
+
+    for (Enemy* e : enemies_)
+    {
+        e->render(*pWindow_);
+    }
+
+    // Display
     pWindow_->display();
 }
 

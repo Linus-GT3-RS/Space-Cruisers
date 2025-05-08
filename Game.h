@@ -1,7 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
 #include "Player.h"
+#include "Bullet.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -13,7 +16,8 @@ public:
 	void run();
 
 	void update();
-	void updatePlayer();
+	void updateBullets();
+	void updateEnemies();
 
 	void render();
 	
@@ -24,6 +28,8 @@ private:
 
 	// Entities
 	Player* pPlayer_;
+	std::vector<Bullet*> bullets_;
+	std::vector<Enemy*> enemies_;
 
 	void pollEvents();	
 };
