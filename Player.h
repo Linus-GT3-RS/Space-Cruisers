@@ -19,7 +19,8 @@ private:
 	sf::RectangleShape shape_;
 
 	// Movement
-	float speed_;
+	float movementSpeed_;
+	float rotationSpeed_;
 
 	// Shooting
 	int attackCooldown_;

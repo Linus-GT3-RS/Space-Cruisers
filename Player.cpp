@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(float pos_x, float pos_y) :
-	speed_(2.F),
+	movementSpeed_(2.F), rotationSpeed_(2.5F),
 	attackCooldown_(0), attackCooldownMax_(10)
 {
 	shape_.setSize({ 50.F, 50.F });
@@ -12,7 +12,7 @@ Player::Player(float pos_x, float pos_y) :
 
 void Player::move(float dir_x, float dir_y)
 {
-	shape_.move({ dir_x * speed_, dir_y * speed_ });
+	shape_.move({ dir_x * movementSpeed_, dir_y * movementSpeed_ });
 }
 
 const sf::Vector2f Player::getPosition() const
@@ -36,6 +36,10 @@ void Player::update()
 	// Move player left or right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) move(-1.F, 0.F);
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) move(1.F, 0.F);
+
+	// Rotate Player TEST
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::X)) shape_.rotate(sf::degrees(1.F) * rotationSpeed_);
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::C)) shape_.rotate(sf::degrees(-1.F) * rotationSpeed_);
 
 	// Update Cooldowns
 	if (attackCooldown_ < attackCooldownMax_) attackCooldown_++;

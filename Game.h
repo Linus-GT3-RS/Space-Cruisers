@@ -32,6 +32,7 @@ private:
 
 	// Enemies
 	std::vector<Enemy*> enemies_;
+	int maxEnemies_;
 	int counter_;
 	const int counterMax_;
 

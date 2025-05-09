@@ -4,7 +4,7 @@
 #include <sstream>
 
 Game::Game() :
-    counter_(0), counterMax_(100)
+    counter_(0), counterMax_(100), maxEnemies_(10)
 {
     pWindow_ = new sf::RenderWindow(sf::VideoMode{ {600,800} }, 
         "Space Cruisers", sf::Style::Titlebar | sf::Style::Close);
@@ -90,12 +90,13 @@ void Game::updateEnemiesAndCombat()
     }
 
     // Spawn Enemy
-    counter_++;
-    if (counter_ >= counterMax_)
+    if(counter_ < counterMax_) counter_++;    
+    if (counter_ >= counterMax_ && static_cast<int>(enemies_.size()) < maxEnemies_)
     {
         counter_ = 0;
-        enemies_.push_back(new Enemy(static_cast<float>(rand() % pWindow_->getSize().x - 50), 
-                                    static_cast<float>(rand() % pWindow_->getSize().y - 50)));
+        enemies_.push_back(new Enemy(static_cast<float>(rand() % (pWindow_->getSize().x - 50)),
+                                    static_cast<float>(rand() % (pWindow_->getSize().y - 50))
+                            ));
     }
 }
 
