@@ -3,7 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-Game::Game()
+Game::Game() :
+    counter_(0), counterMax_(100)
 {
     pWindow_ = new sf::RenderWindow(sf::VideoMode{ {600,800} }, 
         "Space Cruisers", sf::Style::Titlebar | sf::Style::Close);
@@ -32,7 +33,7 @@ void Game::update()
 
     updateBullets();
 
-    updateEnemies();
+    updateEnemiesAndCombat();
 }
 
 void Game::updateBullets()
@@ -67,32 +68,61 @@ void Game::updateBullets()
 	}
 }
 
-void Game::updateEnemies() // TODO
+void Game::updateEnemiesAndCombat()
 {
-    
+    // Update Combat
+    for (int i = static_cast<int>(enemies_.size()) - 1; i >= 0; i--)
+    {
+        for (int k = static_cast<int>(bullets_.size()) - 1; k >= 0; k--)
+        {
+            // Remove Bullet and Enemy if they interconnect
+            if (bullets_[k]->getBounds().findIntersection(enemies_[i]->getBounds()))
+            {
+                delete bullets_[k];
+                bullets_.erase(bullets_.begin() + k);
+
+                delete enemies_[i];
+                enemies_.erase(enemies_.begin() + i);
+
+                break;
+            }
+        }
+    }
+
+    // Spawn Enemy
+    counter_++;
+    if (counter_ >= counterMax_)
+    {
+        counter_ = 0;
+        enemies_.push_back(new Enemy(static_cast<float>(rand() % pWindow_->getSize().x - 50), 
+                                    static_cast<float>(rand() % pWindow_->getSize().y - 50)));
+    }
 }
 
 void Game::render()
 {
-    // Clear
+    // Clear Window
     pWindow_->clear();
     
     /*
         draw game objects
     */
-	pPlayer_->render(*pWindow_);
-
+    // Bullets
     for (Bullet* b : bullets_)
     {
-		b->render(*pWindow_);
+        b->render(*pWindow_);
     }
 
+    // Player
+	pPlayer_->render(*pWindow_);
+    
+    // Enemies
     for (Enemy* e : enemies_)
     {
         e->render(*pWindow_);
     }
 
-    // Display
+    // Display Window
     pWindow_->display();
 }
 

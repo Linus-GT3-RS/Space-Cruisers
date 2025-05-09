@@ -17,7 +17,7 @@ public:
 
 	void update();
 	void updateBullets();
-	void updateEnemies();
+	void updateEnemiesAndCombat();
 
 	void render();
 	
@@ -29,7 +29,11 @@ private:
 	// Entities
 	Player* pPlayer_;
 	std::vector<Bullet*> bullets_;
+
+	// Enemies
 	std::vector<Enemy*> enemies_;
+	int counter_;
+	const int counterMax_;
 
 	void pollEvents();	
 };
