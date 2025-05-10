@@ -3,6 +3,7 @@
 Bullet::Bullet(float pos_x, float pos_y, sf::Vector2f direc, float speed_) :
 	direc_(direc), speed_(speed_)
 {
+	// Shape
 	shape_.setSize({ 10.F, 20.F });
 	shape_.setFillColor(sf::Color::Cyan);
 	shape_.setPosition({ pos_x, pos_y });

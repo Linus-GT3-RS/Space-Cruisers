@@ -16,8 +16,6 @@ public:
 	void run();
 
 	void update();
-	void updateBullets();
-	void updateEnemiesAndCombat();
 
 	void render();
 	
@@ -25,6 +23,7 @@ public:
 private:
 	// UI
 	sf::RenderWindow* pWindow_;
+	sf::Vector2f mouse_pos_;
 
 	// Entities
 	Player* pPlayer_;
@@ -36,6 +35,10 @@ private:
 	int counter_;
 	const int counterMax_;
 
+	// Functions
 	void pollEvents();	
+	void updateMouse();
+	void updateBullets();
+	void updateEnemiesAndCombat();
 };
 
