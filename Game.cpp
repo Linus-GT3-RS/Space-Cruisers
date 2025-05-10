@@ -62,12 +62,10 @@ void Game::updateBullets()
     // Spawn new Bullet
 	if (pPlayer_->canAttack() && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) // TODO enprellung 
 	{
-        float playerPosX = pPlayer_->getPosition().x + pPlayer_->getSize().x / 2.F;
-        float playerPosY = pPlayer_->getPosition().y + pPlayer_->getSize().y / 2.F;
 
 		bullets_.push_back(
-            new Bullet(playerPosX, playerPosY,
-                (mouse_pos_ - sf::Vector2f{ playerPosX, playerPosY }).normalized(),
+            new Bullet(pPlayer_->getPosition().x, pPlayer_->getPosition().y,
+                (mouse_pos_ - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
                 5.F)
         );
 	}
