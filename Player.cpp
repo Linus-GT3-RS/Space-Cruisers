@@ -7,6 +7,7 @@ Player::Player(float pos_x, float pos_y) :
 	shape_.setSize({ 50.F, 50.F });
 	shape_.setFillColor(sf::Color::White);
 	shape_.setPosition({ pos_x, pos_y });
+	shape_.setOrigin({ shape_.getSize().x / 2.F, shape_.getSize().y / 2.F });
 }
 
 
@@ -32,7 +33,7 @@ const bool Player::canAttack()
 	return true;
 }
 
-void Player::update()
+void Player::update(const sf::Vector2f& mousePos)
 {
 	// Move player up or down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) move(0.F, -1.F);
@@ -42,9 +43,9 @@ void Player::update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) move(-1.F, 0.F);
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) move(1.F, 0.F);
 
-	// Rotate Player TEST
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::X)) shape_.rotate(sf::degrees(1.F) * rotationSpeed_);
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::C)) shape_.rotate(sf::degrees(-1.F) * rotationSpeed_);
+	// Rotate Player to point into direction of mouse
+	sf::Vector2f dir2Mouse = (mousePos - shape_.getPosition()).normalized();
+	shape_.setRotation(sf::radians(std::atan2(dir2Mouse.y, dir2Mouse.x)));
 
 	// Update Cooldowns
 	if (attackCooldown_ < attackCooldownMax_) attackCooldown_++;

@@ -29,7 +29,7 @@ Game::~Game()
 
 void Game::update()
 {
-    pPlayer_->update();
+    pPlayer_->update(mouse_pos_);
 
     updateBullets();
 

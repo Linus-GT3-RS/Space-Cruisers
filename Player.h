@@ -7,7 +7,7 @@ class Player
 public:
 	Player(float pos_x, float pos_y);
 
-	void update();
+	void update(const sf::Vector2f& mousePos);
 	void render(sf::RenderTarget& target);
 
 	void move(float dir_x, float dir_y);
