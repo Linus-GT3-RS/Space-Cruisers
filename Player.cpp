@@ -20,6 +20,11 @@ const sf::Vector2f Player::getPosition() const
 	return shape_.getPosition();
 }
 
+const sf::Vector2f Player::getSize() const
+{
+	return shape_.getSize();
+}
+
 const bool Player::canAttack()
 {
 	if (attackCooldown_ < attackCooldownMax_) return false;

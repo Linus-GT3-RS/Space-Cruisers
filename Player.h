@@ -12,6 +12,7 @@ public:
 
 	void move(float dir_x, float dir_y);
 	const sf::Vector2f getPosition() const;
+	const sf::Vector2f getSize() const;
 	const bool canAttack();
 
 

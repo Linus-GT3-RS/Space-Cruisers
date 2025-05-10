@@ -63,7 +63,11 @@ void Game::updateBullets()
 	if (pPlayer_->canAttack() && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) // TODO enprellung 
 	{
 		bullets_.push_back(
-            new Bullet(pPlayer_->getPosition().x, pPlayer_->getPosition().y, sf::Vector2f(0.F, -1.F), 5.F)
+            new Bullet(
+                pPlayer_->getPosition().x + pPlayer_->getSize().x / 2,
+                pPlayer_->getPosition().y, 
+                sf::Vector2f(0.F, -1.F), 
+                5.F)
         );
 	}
 }
