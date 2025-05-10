@@ -68,7 +68,7 @@ void Game::updateBullets()
 		bullets_.push_back(
             new Bullet(pPlayer_->getPosition().x, pPlayer_->getPosition().y,
                 (mouse_pos_ - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
-                5.F)
+                8.F)
         );
 	}
 }

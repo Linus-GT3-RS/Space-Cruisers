@@ -4,10 +4,13 @@ Bullet::Bullet(float pos_x, float pos_y, sf::Vector2f direc, float speed_) :
 	direc_(direc), speed_(speed_)
 {
 	// Shape
-	shape_.setSize({ 10.F, 20.F });
+	shape_.setSize({ 5.F, 20.F });
 	shape_.setFillColor(sf::Color::Cyan);
 	shape_.setPosition({ pos_x, pos_y });
 	shape_.setOrigin({ shape_.getSize().x / 2.F, shape_.getSize().y / 2.F });
+
+	// Rotate to match direction
+	shape_.setRotation(sf::radians(std::atan2(direc.y, direc.x)) + sf::degrees(90.F));
 }
 
 void Bullet::render(sf::RenderTarget& target) const
