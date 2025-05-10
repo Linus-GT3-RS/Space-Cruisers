@@ -2,7 +2,7 @@
 
 Player::Player(float pos_x, float pos_y) :
 	movementSpeed_(2.F), rotationSpeed_(2.5F),
-	attackCooldown_(0), attackCooldownMax_(10)
+	attackCooldown_(0), attackCooldownMax_(20)
 {
 	shape_.setSize({ 50.F, 50.F });
 	shape_.setFillColor(sf::Color::White);

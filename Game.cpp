@@ -78,6 +78,9 @@ void Game::updateEnemiesAndCombat()
     // Update Combat
     for (int i = static_cast<int>(enemies_.size()) - 1; i >= 0; i--)
     {
+        enemies_[i]->move(*pPlayer_);
+
+        // Check if enemy got hit
         for (int k = static_cast<int>(bullets_.size()) - 1; k >= 0; k--)
         {
             // Remove Bullet and Enemy if they interconnect
@@ -99,8 +102,9 @@ void Game::updateEnemiesAndCombat()
     if (counter_ >= counterMax_ && static_cast<int>(enemies_.size()) < maxEnemies_)
     {
         counter_ = 0;
-        enemies_.push_back(new Enemy(static_cast<float>(rand() % (pWindow_->getSize().x - 50)),
-                                    static_cast<float>(rand() % (pWindow_->getSize().y - 50))
+        enemies_.push_back(new Enemy(
+                                pPlayer_->getPosition().x + + 250.F + (static_cast<float>(rand() % pWindow_->getSize().x) / 2.F),
+                                pPlayer_->getPosition().y + 250.F + (static_cast<float>(rand() % pWindow_->getSize().y) / 2.F)
                             ));
     }
 }
