@@ -31,7 +31,7 @@ Game::~Game()
 
 void Game::update()
 {
-    pPlayer_->update(mouse_pos_);
+    pPlayer_->update(mouse_pos_, *pWindow_);
 
     updateBullets();
 
