@@ -2,7 +2,7 @@
 
 Player::Player(float pos_x, float pos_y) :
 	movementSpeed_(2.F), rotationSpeed_(2.5F),
-	attackCooldown_(0), attackCooldownMax_(20)
+	cooldownSpray_(0), cooldownSnipe_(0), attackCooldownMax_(40)
 {
 	shape_.setSize({ 50.F, 50.F });
 	shape_.setFillColor(sf::Color::White);
@@ -26,11 +26,22 @@ const sf::Vector2f Player::getSize() const
 	return shape_.getSize();
 }
 
-const bool Player::canAttack()
+const bool Player::canAttack(AttackType attack)
 {
-	if (attackCooldown_ < attackCooldownMax_) return false;
-	attackCooldown_ = 0;
-	return true;
+	if (attack == AttackType::SPRAY)
+	{
+		if (cooldownSpray_ < attackCooldownMax_) return false;
+		cooldownSpray_ = 0;
+		return true;
+	}
+	else if (attack == AttackType::SNIPE)
+	{
+		if (cooldownSnipe_ < attackCooldownMax_) return false;
+		cooldownSnipe_ = 0;
+		return true;
+	}
+
+	return false;
 }
 
 void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window)
@@ -66,7 +77,8 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 	}
 
 	// Update Cooldowns
-	if (attackCooldown_ < attackCooldownMax_) attackCooldown_++;
+	if (cooldownSpray_ < attackCooldownMax_) cooldownSpray_ += 2;
+	if (cooldownSnipe_ < attackCooldownMax_) cooldownSnipe_++;
 }
 
 void Player::render(sf::RenderTarget& target)

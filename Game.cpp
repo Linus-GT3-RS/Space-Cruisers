@@ -62,7 +62,7 @@ void Game::updateBullets()
     }
 
     // Spawn new Bullet
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && pPlayer_->canAttack())
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && pPlayer_->canAttack(AttackType::SPRAY))
 	{
 		bullets_.push_back(new Bullet(
                 pPlayer_->getPosition().x, pPlayer_->getPosition().y,
@@ -70,6 +70,14 @@ void Game::updateBullets()
                 8.F
                 ));
 	}
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->canAttack(AttackType::SNIPE))
+    {
+        bullets_.push_back(new Bullet(
+            pPlayer_->getPosition().x, pPlayer_->getPosition().y,
+            (mouse_pos_ - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
+            40.F
+        ));
+    }
 }
 
 void Game::updateEnemiesAndCombat()
@@ -101,9 +109,9 @@ void Game::updateEnemiesAndCombat()
     if (counter_ >= counterMax_ && static_cast<int>(enemies_.size()) < maxEnemies_)
     {
         counter_ = 0;
-        enemies_.push_back(new Enemy(
-                                pPlayer_->getPosition().x + + 250.F + (static_cast<float>(rand() % pWindow_->getSize().x) / 2.F),
-                                pPlayer_->getPosition().y + 250.F + (static_cast<float>(rand() % pWindow_->getSize().y) / 2.F)
+        enemies_.push_back(new Enemy( // TODO bad spawing logic
+                               static_cast<float>(rand() % pWindow_->getSize().x),
+                                static_cast<float>(rand() % pWindow_->getSize().y)
                             ));
     }
 }

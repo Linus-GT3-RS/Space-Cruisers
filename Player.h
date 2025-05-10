@@ -2,6 +2,11 @@
 
 #include "SFML/Graphics.hpp"
 
+enum class AttackType
+{
+	SPRAY, SNIPE, SPLASH
+};
+
 class Player
 {
 public:
@@ -13,7 +18,7 @@ public:
 	void move(float dir_x, float dir_y);
 	const sf::Vector2f getPosition() const;
 	const sf::Vector2f getSize() const;
-	const bool canAttack();
+	const bool canAttack(AttackType attack);
 
 
 private:
@@ -24,7 +29,8 @@ private:
 	float rotationSpeed_;
 
 	// Shooting
-	int attackCooldown_;
+	int cooldownSpray_;
+	int cooldownSnipe_;
 	const int attackCooldownMax_;
 };
 
