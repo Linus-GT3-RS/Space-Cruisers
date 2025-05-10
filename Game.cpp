@@ -6,11 +6,13 @@
 Game::Game() :
     counter_(0), counterMax_(100), maxEnemies_(10)
 {
-    pWindow_ = new sf::RenderWindow(sf::VideoMode{ {600,800} }, 
-        "Space Cruisers", sf::Style::Titlebar | sf::Style::Close);
+    pWindow_ = new sf::RenderWindow(
+                    sf::VideoMode{ {1440,900} },
+                    "Space Cruisers", sf::Style::Close
+                    );
 	pWindow_->setFramerateLimit(144);
 
-    pPlayer_ = new Player(50.F, 50.F);
+    pPlayer_ = new Player(pWindow_->getSize().x / 2.F, pWindow_->getSize().y / 2.F);
 }
 
 Game::~Game()
