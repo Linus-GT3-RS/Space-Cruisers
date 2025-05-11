@@ -8,8 +8,8 @@ Game::Game() :
     counter_(0)
 {
     pWindow_ = new sf::RenderWindow(
-                    sf::VideoMode{ {config::Window::width,config::Window::height} },
-                    config::Window::title, sf::Style::Close
+                    sf::VideoMode{ {cfg::Window::width,cfg::Window::height} },
+                    cfg::Window::title, sf::Style::Close
                     );
 	pWindow_->setFramerateLimit(144);
 
@@ -68,7 +68,7 @@ void Game::updateBullets()
 		bullets_.push_back(new Bullet(
                 pPlayer_->getPosition().x, pPlayer_->getPosition().y,
                 (mouse_pos_ - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
-                config::Bullet::speed_spray
+                cfg::Bullet::speed_spray
                 ));
 	}
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->isCooldownReady(CooldownType::SNIPE))
@@ -76,7 +76,7 @@ void Game::updateBullets()
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
             (mouse_pos_ - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
-            config::Bullet::speed_snipe
+            cfg::Bullet::speed_snipe
         ));
     }
 }
@@ -106,11 +106,11 @@ void Game::updateEnemiesAndCombat()
     }
 
     // Spawn Enemy
-    if(counter_ < config::Enemies::spawnTimerCounterMax) counter_++;    
-    if (counter_ >= config::Enemies::spawnTimerCounterMax && static_cast<int>(enemies_.size()) < config::Enemies::maxEnemies)
+    if(counter_ < cfg::Enemy::spawnTimerCounterMax) counter_++;    
+    if (counter_ >= cfg::Enemy::spawnTimerCounterMax && static_cast<int>(enemies_.size()) < cfg::Enemy::maxEnemies)
     {
         counter_ = 0;
-        enemies_.push_back(new Enemy( // TODO bad spawing logic
+        enemies_.push_back(new Enemy(
                                static_cast<float>(rand() % pWindow_->getSize().x),
                                 static_cast<float>(rand() % pWindow_->getSize().y)
                             ));

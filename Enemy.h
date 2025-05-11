@@ -15,9 +15,5 @@ public:
 
 private:
 	sf::RectangleShape shape_;
-
-	// Movement
-	float movementSpeed_;
-	float rotationSpeed_;
 };
 

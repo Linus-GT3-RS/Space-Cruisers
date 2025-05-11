@@ -6,7 +6,7 @@ Player::Player(float pos_x, float pos_y) :
 	cooldownDash_(0),
 	cooldownSpray_(0), cooldownSnipe_(0)
 {
-	shape_.setSize({ 50.F, 50.F });
+	shape_.setSize({ cfg::Player::width, cfg::Player::height });
 	shape_.setFillColor(sf::Color::White);
 	shape_.setPosition({ pos_x, pos_y });
 	shape_.setOrigin({ shape_.getSize().x / 2.F, shape_.getSize().y / 2.F });
@@ -15,7 +15,7 @@ Player::Player(float pos_x, float pos_y) :
 
 void Player::move(float dir_x, float dir_y)
 {
-	shape_.move({ dir_x * config::Player::movementSpeed, dir_y * config::Player::movementSpeed });
+	shape_.move({ dir_x * cfg::Player::movementSpeed, dir_y * cfg::Player::movementSpeed });
 }
 
 const sf::Vector2f Player::getPosition() const
@@ -32,19 +32,19 @@ const bool Player::isCooldownReady(CooldownType cdtype)
 {
 	if (cdtype == CooldownType::SPRAY)
 	{
-		if (cooldownSpray_ < config::Player::cooldownAttackSprayMax) return false;
+		if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) return false;
 		cooldownSpray_ = 0;
 		return true;
 	}
 	else if (cdtype == CooldownType::SNIPE)
 	{
-		if (cooldownSnipe_ < config::Player::cooldownAttackSnipeMax) return false;
+		if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) return false;
 		cooldownSnipe_ = 0;
 		return true;
 	}
 	else if (cdtype == CooldownType::DASH)
 	{
-		if (cooldownDash_ < config::Player::cooldownDashMax) return false;
+		if (cooldownDash_ < cfg::Player::cooldownDashMax) return false;
 		cooldownDash_ = 0;
 		return true;
 	}
@@ -64,7 +64,7 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space) && isCooldownReady(CooldownType::DASH))
 	{
-		shape_.move(dir2Mouse * config::Player::dashSpeed);
+		shape_.move(dir2Mouse * cfg::Player::dashSpeed);
 	}
 	else
 	{
@@ -100,9 +100,9 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 	/*
 		Update Cooldowns
 	*/	
-	if (cooldownSpray_ < config::Player::cooldownAttackSprayMax) cooldownSpray_ ++;
-	if (cooldownSnipe_ < config::Player::cooldownAttackSnipeMax) cooldownSnipe_++;
-	if (cooldownDash_ < config::Player::cooldownDashMax) cooldownDash_++;
+	if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) cooldownSpray_ ++;
+	if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) cooldownSnipe_++;
+	if (cooldownDash_ < cfg::Player::cooldownDashMax) cooldownDash_++;
 }
 
 void Player::render(sf::RenderTarget& target)
