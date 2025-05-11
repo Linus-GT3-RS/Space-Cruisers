@@ -86,7 +86,7 @@ void Game::updateEnemiesAndCombat()
     // Update Combat
     for (int i = static_cast<int>(enemies_.size()) - 1; i >= 0; i--)
     {
-        enemies_[i]->move(*pPlayer_);
+        enemies_[i]->moveAndRotate(*pPlayer_);
 
         // Check if enemy got hit
         for (int k = static_cast<int>(bullets_.size()) - 1; k >= 0; k--)
