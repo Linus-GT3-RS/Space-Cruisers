@@ -5,7 +5,7 @@
 #include "GameConfig.h"
 
 Game::Game() :
-    counter_(0), counterMax_(100)
+    counter_(0)
 {
     pWindow_ = new sf::RenderWindow(
                     sf::VideoMode{ {config::Window::width,config::Window::height} },
@@ -63,7 +63,7 @@ void Game::updateBullets()
     }
 
     // Spawn new Bullet
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && pPlayer_->canAttack(AttackType::SPRAY))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && pPlayer_->isCooldownReady(CooldownType::SPRAY))
 	{
 		bullets_.push_back(new Bullet(
                 pPlayer_->getPosition().x, pPlayer_->getPosition().y,
@@ -71,7 +71,7 @@ void Game::updateBullets()
                 config::Bullet::speed_spray
                 ));
 	}
-    else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->canAttack(AttackType::SNIPE))
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->isCooldownReady(CooldownType::SNIPE))
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
@@ -106,8 +106,8 @@ void Game::updateEnemiesAndCombat()
     }
 
     // Spawn Enemy
-    if(counter_ < counterMax_) counter_++;    
-    if (counter_ >= counterMax_ && static_cast<int>(enemies_.size()) < config::Enemies::maxEnemies)
+    if(counter_ < config::Enemies::spawnTimerCounterMax) counter_++;    
+    if (counter_ >= config::Enemies::spawnTimerCounterMax && static_cast<int>(enemies_.size()) < config::Enemies::maxEnemies)
     {
         counter_ = 0;
         enemies_.push_back(new Enemy( // TODO bad spawing logic

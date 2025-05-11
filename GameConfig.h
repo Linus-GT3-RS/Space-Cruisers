@@ -15,6 +15,20 @@ namespace config
 	struct Enemies
 	{
 		inline static const int maxEnemies = 15;
+		inline static const int spawnTimerCounterMax = 50;
+	};
+
+	struct Player
+	{
+		// Stats
+		inline static const float dashSpeed = 250.F;
+		inline static const float movementSpeed = 2.F;
+		inline static const float rotationSpeed = 2.5F;
+
+		// Cooldown
+		inline static const int cooldownDashMax = 1000; 
+		inline static const int cooldownAttackSprayMax = 20;
+		inline static const int cooldownAttackSnipeMax = 50;
 	};
 
 	struct Bullet

@@ -32,7 +32,6 @@ private:
 	// Enemies
 	std::vector<Enemy*> enemies_;
 	int counter_;
-	const int counterMax_;
 
 	// Functions
 	void pollEvents();	
