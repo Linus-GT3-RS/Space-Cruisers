@@ -2,9 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Player.h"
-#include "Bullet.h"
-#include "Enemy.h"
+#include "stack"
+#include "Gamestate.h"
 
 class Game
 {
@@ -12,31 +11,18 @@ public:
 	Game();
 	virtual ~Game();
 
-	const bool isRunning() const;
 	void run();
-
-	void update();
-
-	void render();
-	
 
 private:
 	// UI
 	sf::RenderWindow* pWindow_;
-	sf::Vector2f mouse_pos_;
 
-	// Entities
-	Player* pPlayer_;
-	std::vector<Bullet*> bullets_;
-
-	// Enemies
-	std::vector<Enemy*> enemies_;
-	int counter_;
+	// Gamestate
+	std::stack<Gamestate*> gamestates_; // TODO mb alle pointer in diesen containern in referenzen?
 
 	// Functions
-	void pollEvents();	
-	void updateMouse();
-	void updateBullets();
-	void updateEnemiesAndCombat();
+	void pollEvents();
+
+	void render();
 };
 
