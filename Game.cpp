@@ -4,6 +4,7 @@
 #include <sstream>
 #include "GameConfig.h"
 #include "Level1State.h"
+#include "MainMenuState.h"
 
 Game::Game() :
     dt_(1.F)

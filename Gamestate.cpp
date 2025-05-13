@@ -1,6 +1,6 @@
 #include "Gamestate.h"
 
-sf::Vector2f Gamestate::mouse_pos_c{};
+sf::Vector2f Gamestate::mousePos_c{};
 
 Gamestate::Gamestate(sf::RenderTarget& target) :
 	isRunning_(true),
@@ -14,6 +14,6 @@ Gamestate::~Gamestate()
 
 void Gamestate::updateMouse(const sf::RenderWindow& target)
 {
-	Gamestate::mouse_pos_c.x = static_cast<float>(sf::Mouse::getPosition(target).x);
-	Gamestate::mouse_pos_c.y = static_cast<float>(sf::Mouse::getPosition(target).y);
+	Gamestate::mousePos_c.x = static_cast<float>(sf::Mouse::getPosition(target).x);
+	Gamestate::mousePos_c.y = static_cast<float>(sf::Mouse::getPosition(target).y);
 }

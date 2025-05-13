@@ -30,7 +30,7 @@ void Level1State::update(const float dt)
     assert(pWindow != nullptr);
     Gamestate::updateMouse(*pWindow);
 
-    pPlayer_->update(Gamestate::mouse_pos_c, renderTarget_, dt);
+    pPlayer_->update(Gamestate::mousePos_c, renderTarget_, dt);
 
     updateBullets(dt);
 
@@ -87,7 +87,7 @@ void Level1State::updateBullets(const float dt)
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
-            (Gamestate::mouse_pos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
+            (Gamestate::mousePos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
             cfg::Bullet::speed_spray
         ));
     }
@@ -95,7 +95,7 @@ void Level1State::updateBullets(const float dt)
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
-            (Gamestate::mouse_pos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
+            (Gamestate::mousePos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
             cfg::Bullet::speed_snipe
         ));
     }

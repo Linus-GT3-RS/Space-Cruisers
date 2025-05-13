@@ -19,7 +19,7 @@ protected:
 	bool isRunning_;
 	sf::RenderTarget& renderTarget_;
 
-	static sf::Vector2f mouse_pos_c;
+	static sf::Vector2f mousePos_c;
 	static void updateMouse(const sf::RenderWindow& target);
 };
 
