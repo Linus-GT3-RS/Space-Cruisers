@@ -1,7 +1,7 @@
 #include "Level1State.h"
 
 Level1State::Level1State(sf::RenderTarget& target) :
-    counter_(0), Gamestate(target)
+    counter_(0.F), Gamestate(target)
 {
     pPlayer_ = new Player(renderTarget_.getSize().x / 2.F, renderTarget_.getSize().y / 2.F);
 }
@@ -23,18 +23,18 @@ Level1State::~Level1State()
     --------------------------------------------------------------------------
 */
 
-void Level1State::update()
+void Level1State::update(const float dt)
 {
     // TODO unschön des immer machen?? oder lassen, wenn man des window später ändern kann
     auto pWindow = dynamic_cast<sf::RenderWindow*>(&renderTarget_); 
     assert(pWindow != nullptr);
     Gamestate::updateMouse(*pWindow);
 
-    pPlayer_->update(Gamestate::mouse_pos_c, renderTarget_);
+    pPlayer_->update(Gamestate::mouse_pos_c, renderTarget_, dt);
 
-    updateBullets();
+    updateBullets(dt);
 
-    updateEnemiesAndCombat();
+    updateEnemiesAndCombat(dt);
 }
 
 void Level1State::render()
@@ -59,7 +59,7 @@ void Level1State::render()
     --------------------------------------------------------------------------
 */
 
-void Level1State::updateBullets()
+void Level1State::updateBullets(const float dt)
 {
     // Move existing Bullets
     for (int i = static_cast<int>(bullets_.size()) - 1; i >= 0; i--)
@@ -67,7 +67,7 @@ void Level1State::updateBullets()
         Bullet* pCur = bullets_[i];
 
         // Move
-        pCur->move();
+        pCur->move(dt);
 
         // Border Collision Detection
         if (pCur->getPosition().y + pCur->getBounds().size.y <= 0.F || // top
@@ -101,12 +101,12 @@ void Level1State::updateBullets()
     }
 }
 
-void Level1State::updateEnemiesAndCombat()
+void Level1State::updateEnemiesAndCombat(const float dt)
 {
     // Update Combat
     for (int i = static_cast<int>(enemies_.size()) - 1; i >= 0; i--)
     {
-        enemies_[i]->moveAndRotate(*pPlayer_);
+        enemies_[i]->moveAndRotate(*pPlayer_, dt);
 
         // Check if enemy got hit
         for (int k = static_cast<int>(bullets_.size()) - 1; k >= 0; k--)
@@ -126,7 +126,7 @@ void Level1State::updateEnemiesAndCombat()
     }
 
     // Spawn Enemy
-    if (counter_ < cfg::Enemy::spawnTimerCounterMax) counter_++;
+    if (counter_ < cfg::Enemy::spawnTimerCounterMax) counter_ += dt;
     if (counter_ >= cfg::Enemy::spawnTimerCounterMax && static_cast<int>(enemies_.size()) < cfg::Enemy::maxEnemies)
     {
         counter_ = 0;

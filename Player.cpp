@@ -3,8 +3,8 @@
 #include "GameConfig.h"
 
 Player::Player(float pos_x, float pos_y) :
-	cooldownDash_(0),
-	cooldownSpray_(0), cooldownSnipe_(0)
+	cooldownDash_(0.F),
+	cooldownSpray_(0.F), cooldownSnipe_(0.F)
 {
 	shape_.setSize({ cfg::Player::width, cfg::Player::height });
 	shape_.setFillColor(sf::Color::White);
@@ -13,9 +13,9 @@ Player::Player(float pos_x, float pos_y) :
 }
 
 
-void Player::move(float dir_x, float dir_y)
+void Player::move(float dir_x, float dir_y, const float dt)
 {
-	shape_.move({ dir_x * cfg::Player::movementSpeed, dir_y * cfg::Player::movementSpeed });
+	shape_.move({ dir_x * cfg::Player::movementSpeed * dt, dir_y * cfg::Player::movementSpeed * dt });
 }
 
 const sf::Vector2f Player::getPosition() const
@@ -52,7 +52,7 @@ const bool Player::isCooldownReady(CooldownType cdtype)
 	return false;
 }
 
-void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window)
+void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window, const float dt)
 {
 	/*
 		Update Movement
@@ -64,17 +64,17 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space) && isCooldownReady(CooldownType::DASH))
 	{
-		shape_.move(dir2Mouse * cfg::Player::dashSpeed);
+		shape_.move(dir2Mouse * cfg::Player::dashSpeed * dt);
 	}
 	else
 	{
 		// Move player up or down
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) move(0.F, -1.F);
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S)) move(0.F, 1.F);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) move(0.F, -1.F, dt);
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S)) move(0.F, 1.F, dt);
 
 		// Move player left or right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) move(-1.F, 0.F);
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) move(1.F, 0.F);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) move(-1.F, 0.F, dt);
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) move(1.F, 0.F, dt);
 	}
 
 	/*
@@ -100,9 +100,9 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 	/*
 		Update Cooldowns
 	*/	
-	if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) cooldownSpray_ ++;
-	if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) cooldownSnipe_++;
-	if (cooldownDash_ < cfg::Player::cooldownDashMax) cooldownDash_++;
+	if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) cooldownSpray_ += dt;
+	if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) cooldownSnipe_ += dt;
+	if (cooldownDash_ < cfg::Player::cooldownDashMax) cooldownDash_ += dt;
 }
 
 void Player::render(sf::RenderTarget& target)

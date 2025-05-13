@@ -9,7 +9,7 @@ public:
 
 	void render(sf::RenderTarget& target) const;
 
-	void move();
+	void move(const float dt);
 	const sf::Vector2f getPosition() const;
 	const sf::FloatRect getBounds() const;
 

@@ -12,7 +12,7 @@ public:
 	Level1State(sf::RenderTarget& target);
 	virtual ~Level1State();
 
-	void update() override;
+	void update(const float dt) override;
 	void render() override;	
 
 private:
@@ -20,9 +20,9 @@ private:
 	Player* pPlayer_;
 	std::vector<Bullet*> bullets_;
 	std::vector<Enemy*> enemies_;
-	int counter_;
+	float counter_;
 
-	void updateBullets();
-	void updateEnemiesAndCombat();
+	void updateBullets(const float dt);
+	void updateEnemiesAndCombat(const float dt);
 };
 

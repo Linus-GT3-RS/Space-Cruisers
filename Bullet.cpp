@@ -20,9 +20,9 @@ void Bullet::render(sf::RenderTarget& target) const
 	target.draw(shape_);
 }
 
-void Bullet::move()
+void Bullet::move(const float dt)
 {
-	shape_.move(speed_ * direc_);
+	shape_.move(speed_ * direc_ * dt);
 }
 
 const sf::Vector2f Bullet::getPosition() const

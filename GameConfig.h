@@ -20,11 +20,10 @@ namespace cfg
 		inline static const float height = 70.F;
 
 		// Speed
-		inline static const float movementSpeed = 1.F;
-		// inline static const float rotationSpeed = 2.F;
+		inline static const float movementSpeed = 90.F;
 
 		inline static const int maxEnemies = 15;
-		inline static const int spawnTimerCounterMax = 50;
+		inline static const float spawnTimerCounterMax = 0.5F;
 	};
 
 
@@ -35,14 +34,13 @@ namespace cfg
 		inline static const float height = 50.F;
 
 		// Speed
-		inline static const float dashSpeed = 250.F;
-		inline static const float movementSpeed = 2.F;
-		inline static const float rotationSpeed = 2.5F;
+		inline static const float dashSpeed = 45000;
+		inline static const float movementSpeed = 250.F;
 
 		// Cooldown
-		inline static const int cooldownDashMax = 1000; 
-		inline static const int cooldownAttackSprayMax = 20;
-		inline static const int cooldownAttackSnipeMax = 250;
+		inline static const float cooldownDashMax = 8.F; 
+		inline static const float cooldownAttackSprayMax = 0.1F;
+		inline static const float cooldownAttackSnipeMax = 10.F;
 	};
 
 
@@ -52,8 +50,8 @@ namespace cfg
 		inline static const float height = 20.F;
 
 		// Speed
-		inline static const float speed_spray = 8.F;
-		inline static const float speed_snipe = 25.F;
+		inline static const float speed_spray = 850.F;
+		inline static const float speed_snipe = 5000.F;
 	};
 
 

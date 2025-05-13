@@ -13,10 +13,10 @@ class Player
 public:
 	Player(float pos_x, float pos_y);
 
-	void update(const sf::Vector2f& mousePos, const sf::RenderTarget& window);
+	void update(const sf::Vector2f& mousePos, const sf::RenderTarget& window, const float dt);
 	void render(sf::RenderTarget& target);
 
-	void move(float dir_x, float dir_y);
+	void move(float dir_x, float dir_y, const float dt);
 	const sf::Vector2f getPosition() const;
 	const sf::Vector2f getSize() const;
 	const bool isCooldownReady(CooldownType attack);
@@ -26,10 +26,10 @@ private:
 	sf::RectangleShape shape_;
 
 	// Movement
-	int cooldownDash_;
+	float cooldownDash_;
 
 	// Shooting
-	int cooldownSpray_;
-	int cooldownSnipe_;
+	float cooldownSpray_;
+	float cooldownSnipe_;
 };
 

@@ -10,7 +10,7 @@ public:
 	Gamestate(sf::RenderTarget& target);
 	virtual ~Gamestate();
 
-	virtual void update() = 0;
+	virtual void update(const float dt) = 0;
 	virtual void render() = 0;
 
 	const bool isRunning() const { return isRunning_; }

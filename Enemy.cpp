@@ -20,12 +20,12 @@ const sf::FloatRect Enemy::getBounds() const
 	return shape_.getGlobalBounds();
 }
 
-void Enemy::moveAndRotate(const Player& target)
+void Enemy::moveAndRotate(const Player& target, const float dt)
 {
 	const sf::Vector2f dir2Player = (target.getPosition() - shape_.getPosition()).normalized();
 
 	// Move Enemy to Player
-	shape_.move(dir2Player * cfg::Enemy::movementSpeed);
+	shape_.move(dir2Player * cfg::Enemy::movementSpeed * dt);
 
 	// Rotate Enemy to Player
 	shape_.setRotation(sf::radians(std::atan2(dir2Player.y, dir2Player.x)));

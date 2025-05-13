@@ -11,7 +11,7 @@ public:
 	void render(sf::RenderTarget& target) const;
 
 	const sf::FloatRect getBounds() const;
-	void moveAndRotate(const Player& target);
+	void moveAndRotate(const Player& target, const float dt);
 
 private:
 	sf::RectangleShape shape_;

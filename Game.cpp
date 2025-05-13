@@ -5,7 +5,8 @@
 #include "GameConfig.h"
 #include "Level1State.h"
 
-Game::Game()    
+Game::Game() :
+    dt_(1.F)
 {
     pWindow_ = new sf::RenderWindow(
                     sf::VideoMode{ {cfg::Window::width,cfg::Window::height} },
@@ -51,13 +52,21 @@ void Game::pollEvents()
     }
 }
 
+void Game::updateDeltaTime()
+{
+    dt_ = dtClock_.restart().asSeconds();
+}
+
 void Game::run()
 {
     while (pWindow_->isOpen() && !gamestates_.empty())
-    {        
+    {
+
         if (gamestates_.top()->isRunning())
         {
-            gamestates_.top()->update();
+            updateDeltaTime();
+
+            gamestates_.top()->update(dt_);
 
 		    render();
         }
