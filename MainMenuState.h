@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Button.h"
+
 #include "Gamestate.h"
+#include <iostream>
 
 class MainMenuState : public Gamestate
 {
@@ -12,7 +15,10 @@ public:
 	void render() override;
 
 private:
-	sf::RectangleShape shape_;
 
+	// Game Resources
+	sf::Font font_; // TODO move all resources somewhere else
+	Button btn_; // TODO test
+	
 };
 

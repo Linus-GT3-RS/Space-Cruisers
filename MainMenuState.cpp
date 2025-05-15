@@ -1,13 +1,15 @@
 #include "MainMenuState.h"
+#include <iostream>
 
 MainMenuState::MainMenuState(sf::RenderTarget& target) :
-    Gamestate(target)
+    Gamestate(target), btn_(&font_)
 {
-    shape_.setSize({ 100.F, 100.F });
-    shape_.setPosition({ 100.F, 100.F });
-    shape_.setFillColor(sf::Color::White);
+    // Fonts
+    if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::GAME::GAME Font loading error" << "\n";
 }
 
+#pragma warning(push)
+#pragma warning(disable: 4100) // remove
 void MainMenuState::update(const float dt)
 {
     // TODO unschön des immer machen?? oder lassen, wenn man des window später ändern kann
@@ -15,25 +17,11 @@ void MainMenuState::update(const float dt)
     assert(pWindow != nullptr);
     Gamestate::updateMouse(*pWindow);
 
-    if (shape_.getGlobalBounds().contains(mousePos_c))
-    {
-        shape_.setFillColor(sf::Color::Blue);
-
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        {
-            shape_.setFillColor(sf::Color::Cyan);
-
-            isRunning_ = (dt >= 0.F) ? false : true; // TODO change to sth usefull
-        }
-    }
-    else
-    {
-        shape_.setFillColor(sf::Color::White);
-    }
-
+    btn_.update(mousePos_c);
 }
+#pragma warning(pop)
 
 void MainMenuState::render()
 {
-	renderTarget_.draw(shape_);
+    btn_.render(renderTarget_);
 }
