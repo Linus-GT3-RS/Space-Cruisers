@@ -15,8 +15,7 @@ Game::Game() :
                     );
 	pWindow_->setFramerateLimit(144);
 
-    gamestates_.push(new Level1State(*pWindow_));
-    gamestates_.push(new MainMenuState(*pWindow_));
+    gamestates_.push(new MainMenuState(*pWindow_, gamestates_));
 }
 
 Game::~Game()

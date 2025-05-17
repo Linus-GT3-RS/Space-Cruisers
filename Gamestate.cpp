@@ -1,10 +1,12 @@
 #include "Gamestate.h"
 
+
 sf::Vector2f Gamestate::mousePos_c{};
 
-Gamestate::Gamestate(sf::RenderTarget& target) :
+Gamestate::Gamestate(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
 	isRunning_(true),
-	renderTarget_(target)
+	renderTarget_(target),
+	gamestates_(gamestates)
 {
 }
 

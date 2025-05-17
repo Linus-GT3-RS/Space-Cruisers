@@ -1,8 +1,9 @@
 #include "MainMenuState.h"
 #include <iostream>
+#include "Level1State.h"
 
-MainMenuState::MainMenuState(sf::RenderTarget& target) :
-    Gamestate(target), btn_(&font_, [this]() { this->isRunning_ = false; })
+MainMenuState::MainMenuState(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
+    Gamestate(target, gamestates), btn_(&font_, [this]() { this->gamestates_.push(new Level1State(renderTarget_, gamestates_)); })
 {
     // Fonts
     if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::GAME::GAME Font loading error" << "\n";

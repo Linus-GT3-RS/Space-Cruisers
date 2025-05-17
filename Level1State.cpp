@@ -1,7 +1,7 @@
 #include "Level1State.h"
 
-Level1State::Level1State(sf::RenderTarget& target) :
-    counter_(0.F), Gamestate(target)
+Level1State::Level1State(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
+    counter_(0.F), Gamestate(target, gamestates)
 {
     pPlayer_ = new Player(renderTarget_.getSize().x / 2.F, renderTarget_.getSize().y / 2.F);
 }

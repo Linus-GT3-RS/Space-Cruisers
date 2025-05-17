@@ -9,7 +9,7 @@
 class Level1State : public Gamestate
 {
 public:
-	Level1State(sf::RenderTarget& target);
+	Level1State(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates);
 	virtual ~Level1State();
 
 	void update(const float dt) override;
