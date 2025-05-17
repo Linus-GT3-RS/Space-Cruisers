@@ -14,9 +14,9 @@ class Button
 public:
 	Button(	sf::Font* font, 
 			const std::function<void()> onBtnPressed = [](){},
+			std::string txt = "Button",		
 			float x_pos = 300.F, float y_pos = 300.F, 
-			float width = 400.F, float height = 100.F, 
-			std::string txt = "Button"			
+			float width = 400.F, float height = 100.F
 			);
 	virtual ~Button() = default;
 

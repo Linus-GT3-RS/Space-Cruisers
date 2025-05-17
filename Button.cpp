@@ -4,9 +4,9 @@ Button::Button
 	(
 	sf::Font* font,
 	const std::function<void()> onBtnPressed,
+	std::string txt,
 	float x_pos, float y_pos, 
-	float width, float height, 
-	std::string txt	
+	float width, float height
 	) :
 	text_(*font), btnState_(BtnState::INACTIVE), onBtnPressed(onBtnPressed)
 {
