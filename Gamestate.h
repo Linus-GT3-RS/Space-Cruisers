@@ -7,7 +7,7 @@
 class Gamestate
 {
 public:
-	Gamestate(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates);
+	Gamestate(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates); 
 	virtual ~Gamestate();
 
 	virtual void update(const float dt) = 0;

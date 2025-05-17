@@ -5,6 +5,7 @@
 #include "GameConfig.h"
 #include "Level1State.h"
 #include "MainMenuState.h"
+#include "TestState.h"
 
 Game::Game() :
     dt_(1.F)
@@ -15,7 +16,9 @@ Game::Game() :
                     );
 	pWindow_->setFramerateLimit(144);
 
-    gamestates_.push(new MainMenuState(*pWindow_, gamestates_));
+    /*gamestates_.push(new MainMenuState(*pWindow_, gamestates_)); 
+    gamestates_.push(new Level1State(*pWindow_, gamestates_));*/
+    gamestates_.push(new TestState(*pWindow_, gamestates_));
 }
 
 Game::~Game()
