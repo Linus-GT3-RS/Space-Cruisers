@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-
+#include <functional>
 #include "Gamestate.h"
 
 enum class BtnState
@@ -13,7 +13,7 @@ class Button
 {
 public:
 	Button(	sf::Font* font, 
-			// TODO Callback Lambda
+			const std::function<void()> onBtnPressed = [](){},
 			float x_pos = 300.F, float y_pos = 300.F, 
 			float width = 400.F, float height = 100.F, 
 			std::string txt = "Button"			
@@ -28,6 +28,8 @@ private:
 	BtnState btnState_;
 
 	sf::Text text_;
+
+	const std::function<void()> onBtnPressed;
 
 };
 

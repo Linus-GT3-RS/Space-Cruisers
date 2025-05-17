@@ -3,11 +3,12 @@
 Button::Button
 	(
 	sf::Font* font,
+	const std::function<void()> onBtnPressed,
 	float x_pos, float y_pos, 
 	float width, float height, 
 	std::string txt	
 	) :
-	text_(*font), btnState_(BtnState::INACTIVE)
+	text_(*font), btnState_(BtnState::INACTIVE), onBtnPressed(onBtnPressed)
 {
 	// Button shape
 	shape_.setSize({ width, height });
@@ -37,6 +38,7 @@ void Button::update(const sf::Vector2f& mousePos)
 		{
 			btnState_ = BtnState::PRESSED;
 
+			onBtnPressed();
 		}
 	}
 }

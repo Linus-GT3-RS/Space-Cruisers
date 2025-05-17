@@ -2,7 +2,7 @@
 #include <iostream>
 
 MainMenuState::MainMenuState(sf::RenderTarget& target) :
-    Gamestate(target), btn_(&font_)
+    Gamestate(target), btn_(&font_, [this]() { this->isRunning_ = false; })
 {
     // Fonts
     if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::GAME::GAME Font loading error" << "\n";
