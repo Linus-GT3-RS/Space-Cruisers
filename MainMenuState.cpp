@@ -3,7 +3,9 @@
 #include "Level1State.h"
 
 MainMenuState::MainMenuState(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
-    Gamestate(target, gamestates), btn_(&font_, [this]() { this->gamestates_.push(new Level1State(renderTarget_, gamestates_)); })
+    Gamestate(target, gamestates), 
+    btnNewGame_(&font_, [this]() { this->gamestates_.push(new Level1State(renderTarget_, gamestates_)); }, "New Game"),
+    btnExit_(&font_, [this]() { this->isRunning_ = false; }, "Exit", 500.F, 500.F)
 {
     // Fonts
     if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::GAME::GAME Font loading error" << "\n";
@@ -18,11 +20,13 @@ void MainMenuState::update(const float dt)
     assert(pWindow != nullptr);
     Gamestate::updateMouse(*pWindow);
 
-    btn_.update(mousePos_c);
+    btnNewGame_.update(mousePos_c);
+    btnExit_.update(mousePos_c);
 }
 #pragma warning(pop)
 
 void MainMenuState::render()
 {
-    btn_.render(renderTarget_);
+    btnNewGame_.render(renderTarget_);
+    btnExit_.render(renderTarget_);
 }

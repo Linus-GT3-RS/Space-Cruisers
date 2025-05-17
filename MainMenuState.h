@@ -19,7 +19,8 @@ private:
 
 	// Game Resources
 	sf::Font font_; // TODO move all resources somewhere else
-	Button btn_; // TODO test
+	Button btnNewGame_;
+	Button btnExit_;
 	
 };
 
