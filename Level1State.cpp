@@ -83,7 +83,7 @@ void Level1State::updateBullets(const float dt)
     }
 
     // Spawn new Bullet
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && pPlayer_->isCooldownReady(CooldownType::SPRAY))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && pPlayer_->useCooldown(CooldownType::SPRAY))
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
@@ -91,7 +91,7 @@ void Level1State::updateBullets(const float dt)
             cfg::Bullet::speed_spray
         ));
     }
-    else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->isCooldownReady(CooldownType::SNIPE))
+    else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->useCooldown(CooldownType::SNIPE))
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,

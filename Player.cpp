@@ -1,15 +1,21 @@
 #include "Player.h"
 
 #include "GameConfig.h"
+#include <iostream>
 
 Player::Player(float pos_x, float pos_y) :
-	cooldownDash_(0.F),
-	cooldownSpray_(0.F), cooldownSnipe_(0.F)
+	/*cooldownDash_(0.F),
+	cooldownSpray_(0.F), cooldownSnipe_(0.F)*/
+	cdHyperJump_(cfg::Player::cooldownDashMax, "HyperJ", &font_, 1300.F, 800.F),
+	cdSpray_(cfg::Player::cooldownAttackSprayMax, "SprayA", &font_, 1150.F, 800.F),
+	cdSnipe_(cfg::Player::cooldownAttackSnipeMax, "SnipeA", &font_, 1000.F, 800.F)
 {
 	shape_.setSize({ cfg::Player::width, cfg::Player::height });
 	shape_.setFillColor(sf::Color::White);
 	shape_.setPosition({ pos_x, pos_y });
 	shape_.setOrigin({ shape_.getSize().x / 2.F, shape_.getSize().y / 2.F });
+
+	if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::Player::Player Font loading error" << "\n";
 }
 
 
@@ -28,29 +34,44 @@ const sf::Vector2f Player::getSize() const
 	return shape_.getSize();
 }
 
-const bool Player::isCooldownReady(CooldownType cdtype) // TODO in eig klasse eig oder.. und dann 2 methoden useCooldown : bool, und isReady : bool
+bool Player::useCooldown(CooldownType type)
 {
-	if (cdtype == CooldownType::SPRAY)
+	switch (type)
 	{
-		if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) return false;
-		cooldownSpray_ = 0;
-		return true;
+	case CooldownType::SPRAY:
+		return cdSpray_.useCooldown();
+		break;
+	case CooldownType::SNIPE:
+		return cdSnipe_.useCooldown();
+		break;
+	default:
+		return false;
 	}
-	else if (cdtype == CooldownType::SNIPE)
-	{
-		if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) return false;
-		cooldownSnipe_ = 0;
-		return true;
-	}
-	else if (cdtype == CooldownType::DASH)
-	{
-		if (cooldownDash_ < cfg::Player::cooldownDashMax) return false;
-		cooldownDash_ = 0;
-		return true;
-	}
-
-	return false;
 }
+
+//const bool Player::isCooldownReady(CooldownType cdtype) // TODO in eig klasse eig oder.. und dann 2 methoden useCooldown : bool, und isReady : bool
+//{
+//	if (cdtype == CooldownType::SPRAY)
+//	{
+//		if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) return false;
+//		cooldownSpray_ = 0;
+//		return true;
+//	}
+//	else if (cdtype == CooldownType::SNIPE)
+//	{
+//		if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) return false;
+//		cooldownSnipe_ = 0;
+//		return true;
+//	}
+//	else if (cdtype == CooldownType::DASH)
+//	{
+//		if (cooldownDash_ < cfg::Player::cooldownDashMax) return false;
+//		cooldownDash_ = 0;
+//		return true;
+//	}
+//
+//	return false;
+//}
 
 void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window, const float dt)
 {
@@ -62,7 +83,7 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 	sf::Vector2f dir2Mouse = (mousePos - shape_.getPosition()).normalized();
 	shape_.setRotation(sf::radians(std::atan2(dir2Mouse.y, dir2Mouse.x)));
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space) && isCooldownReady(CooldownType::DASH))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space) && cdHyperJump_.useCooldown())
 	{
 		shape_.move(dir2Mouse * cfg::Player::dashSpeed * dt);
 	}
@@ -99,13 +120,16 @@ void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window
 
 	/*
 		Update Cooldowns
-	*/	
-	if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) cooldownSpray_ += dt;
-	if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) cooldownSnipe_ += dt;
-	if (cooldownDash_ < cfg::Player::cooldownDashMax) cooldownDash_ += dt;
+	*/
+	cdHyperJump_.update(dt);
+	cdSpray_.update(dt);
+	cdSnipe_.update(dt);
 }
 
 void Player::render(sf::RenderTarget& target)
 {
 	target.draw(shape_);
+	cdHyperJump_.render(target);
+	cdSpray_.render(target);
+	cdSnipe_.render(target);
 }
