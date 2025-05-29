@@ -4,8 +4,6 @@
 #include <iostream>
 
 Player::Player(float pos_x, float pos_y) :
-	/*cooldownDash_(0.F),
-	cooldownSpray_(0.F), cooldownSnipe_(0.F)*/
 	cdHyperJump_(cfg::Player::cooldownDashMax, "HyperJ", &font_, 1300.F, 800.F),
 	cdSpray_(cfg::Player::cooldownAttackSprayMax, "SprayA", &font_, 1150.F, 800.F),
 	cdSnipe_(cfg::Player::cooldownAttackSnipeMax, "SnipeA", &font_, 1000.F, 800.F)
@@ -48,30 +46,6 @@ bool Player::useCooldown(CooldownType type)
 		return false;
 	}
 }
-
-//const bool Player::isCooldownReady(CooldownType cdtype) // TODO in eig klasse eig oder.. und dann 2 methoden useCooldown : bool, und isReady : bool
-//{
-//	if (cdtype == CooldownType::SPRAY)
-//	{
-//		if (cooldownSpray_ < cfg::Player::cooldownAttackSprayMax) return false;
-//		cooldownSpray_ = 0;
-//		return true;
-//	}
-//	else if (cdtype == CooldownType::SNIPE)
-//	{
-//		if (cooldownSnipe_ < cfg::Player::cooldownAttackSnipeMax) return false;
-//		cooldownSnipe_ = 0;
-//		return true;
-//	}
-//	else if (cdtype == CooldownType::DASH)
-//	{
-//		if (cooldownDash_ < cfg::Player::cooldownDashMax) return false;
-//		cooldownDash_ = 0;
-//		return true;
-//	}
-//
-//	return false;
-//}
 
 void Player::update(const sf::Vector2f& mousePos, const sf::RenderTarget& window, const float dt)
 {
