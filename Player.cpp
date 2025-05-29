@@ -28,7 +28,7 @@ const sf::Vector2f Player::getSize() const
 	return shape_.getSize();
 }
 
-const bool Player::isCooldownReady(CooldownType cdtype)
+const bool Player::isCooldownReady(CooldownType cdtype) // TODO in eig klasse eig oder.. und dann 2 methoden useCooldown : bool, und isReady : bool
 {
 	if (cdtype == CooldownType::SPRAY)
 	{

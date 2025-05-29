@@ -8,8 +8,8 @@ class TestState : public Gamestate
 {
 public:
 	TestState(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) 
-		: Gamestate(target, gamestates), 
-		ent1_(100.F, 100.F, text1_)
+		: Gamestate(target, gamestates)
+		//,ent1_(100.F, 100.F, text1_)
 	{
 		
 	}
@@ -23,12 +23,12 @@ public:
 
 	void render() override
 	{
-		ent1_.render(renderTarget_);
+		//ent1_.render(renderTarget_);
 	}
 
 private:
 	sf::Texture text1_;
 
-	Entity ent1_;
+	//Entity ent1_;
 
 };

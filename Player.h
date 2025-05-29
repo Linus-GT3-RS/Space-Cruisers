@@ -4,7 +4,7 @@
 
 enum class CooldownType
 {
-	SPRAY, SNIPE, SPLASH,
+	SPRAY, SNIPE, /* TODO SPLASH, */
 	DASH
 };
 
@@ -26,7 +26,7 @@ private:
 	sf::RectangleShape shape_;
 
 	// Movement
-	float cooldownDash_;
+	float cooldownDash_; // TODO rename to HyperJump
 
 	// Shooting
 	float cooldownSpray_;
