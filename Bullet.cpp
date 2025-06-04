@@ -1,36 +1,28 @@
 #include "Bullet.h"
 
 #include "GameConfig.h"
+#include <stdexcept> // Include this header for std::runtime_error
 
-Bullet::Bullet(float pos_x, float pos_y, sf::Vector2f direc, float speed_) :
-	direc_(direc), speed_(speed_)
+Bullet::Bullet(float pos_x, float pos_y, sf::Texture& texture, sf::Vector2f direc, float speed_, int damage) :
+	Entity(pos_x, pos_y, texture, 0),
+	direc_(direc), speed_(speed_), damage_(damage)
 {
-	// Shape
-	shape_.setSize({ cfg::Bullet::width, cfg::Bullet::height });
-	shape_.setFillColor(sf::Color::Cyan);
-	shape_.setPosition({ pos_x, pos_y });
-	shape_.setOrigin({ shape_.getSize().x / 2.F, shape_.getSize().y / 2.F });
-
 	// Rotate to match direction
-	shape_.setRotation(sf::radians(std::atan2(direc.y, direc.x)) + sf::degrees(90.F));
+	setRotation(sf::radians(std::atan2(direc.y, direc.x)) + sf::degrees(90.F));
 }
 
-void Bullet::render(sf::RenderTarget& target) const
+void Bullet::update(float dt)
 {
-	target.draw(shape_);
+	move(speed_ * direc_ * dt);
 }
 
-void Bullet::move(const float dt)
+bool Bullet::damage(int damage)
 {
-	shape_.move(speed_ * direc_ * dt);
+	(void)damage; // ignore
+	throw std::runtime_error("Bullet cannot take damage");
 }
 
-const sf::Vector2f Bullet::getPosition() const
+const int Bullet::getDamage() const
 {
-	return shape_.getPosition();
-}
-
-const sf::FloatRect Bullet::getBounds() const
-{
-	return shape_.getGlobalBounds();
+	return damage_;
 }

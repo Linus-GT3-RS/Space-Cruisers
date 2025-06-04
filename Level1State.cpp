@@ -1,9 +1,13 @@
 #include "Level1State.h"
 
+#include <iostream>
+
 Level1State::Level1State(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
     counter_(0.F), Gamestate(target, gamestates)
 {
     pPlayer_ = new Player(renderTarget_.getSize().x / 2.F, renderTarget_.getSize().y / 2.F);
+
+    if (!text_.loadFromFile("test.jpg", false, { {0, 0}, {80, 80} })) std::cout << "ERROR::Level1State::Level1State texture cant be loaded\n";
 }
 
 Level1State::~Level1State()
@@ -67,13 +71,13 @@ void Level1State::updateBullets(const float dt)
         Bullet* pCur = bullets_[i];
 
         // Move
-        pCur->move(dt);
+        pCur->update(dt);
 
         // Border Collision Detection
-        if (pCur->getPosition().y + pCur->getBounds().size.y <= 0.F || // top
-            pCur->getPosition().y > static_cast<float>(renderTarget_.getSize().y) || // bottom
-            pCur->getPosition().x + pCur->getBounds().size.x <= 0.F || // left
-            pCur->getPosition().x > static_cast<float>(renderTarget_.getSize().x) // right
+        if (pCur->getGlobalBounds().position.y + pCur->getGlobalBounds().size.y <= 0.F || // top
+            pCur->getGlobalBounds().position.y > static_cast<float>(renderTarget_.getSize().y) || // bottom
+            pCur->getGlobalBounds().position.x + pCur->getGlobalBounds().size.x <= 0.F || // left
+            pCur->getGlobalBounds().position.x > static_cast<float>(renderTarget_.getSize().x) // right
             )
         {
             // delete
@@ -87,18 +91,24 @@ void Level1State::updateBullets(const float dt)
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
+            text_,
             (Gamestate::mousePos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
-            cfg::Bullet::speed_spray
+            cfg::Bullet::speed_spray,
+            cfg::Bullet::dmg_spray
         ));
     }
     else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pPlayer_->useCooldown(CooldownType::SNIPE))
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
+            text_,
             (Gamestate::mousePos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
-            cfg::Bullet::speed_snipe
+            cfg::Bullet::speed_snipe,
+            cfg::Bullet::dmg_snipe
         ));
     }
+
+    std::cout << "Bullets size:" << bullets_.size() << "\n";
 }
 
 void Level1State::updateEnemiesAndCombat(const float dt)
@@ -106,19 +116,26 @@ void Level1State::updateEnemiesAndCombat(const float dt)
     // Update Combat
     for (int i = static_cast<int>(enemies_.size()) - 1; i >= 0; i--)
     {
-        enemies_[i]->moveAndRotate(*pPlayer_, dt);
+        // Move and rotate Enemy towards player
+        const sf::Vector2f dir2Player = (pPlayer_->getPosition() - enemies_[i]->getGlobalBounds().getCenter()).normalized();
+        enemies_[i]->move(dir2Player * cfg::Enemy::movementSpeed * dt);
+        enemies_[i]->setRotation(sf::radians(std::atan2(dir2Player.y, dir2Player.x)));
 
         // Check if enemy got hit
         for (int k = static_cast<int>(bullets_.size()) - 1; k >= 0; k--)
         {
-            // Remove Bullet and Enemy if they interconnect
-            if (bullets_[k]->getBounds().findIntersection(enemies_[i]->getBounds()))
+            // check Bullet and Enemy if they interconnect
+            if (bullets_[k]->getGlobalBounds().findIntersection(enemies_[i]->getGlobalBounds()))
             {
+                if (enemies_[i]->damage(bullets_[k]->getDamage())) // check if enemy is destroyed
+                {
+                    delete enemies_[i];
+                    enemies_.erase(enemies_.begin() + i);
+                }
+
+                // remove bullet
                 delete bullets_[k];
                 bullets_.erase(bullets_.begin() + k);
-
-                delete enemies_[i];
-                enemies_.erase(enemies_.begin() + i);
 
                 break;
             }
@@ -132,7 +149,9 @@ void Level1State::updateEnemiesAndCombat(const float dt)
         counter_ = 0;
         enemies_.push_back(new Enemy(
             static_cast<float>(rand() % renderTarget_.getSize().x),
-            static_cast<float>(rand() % renderTarget_.getSize().y)
+            static_cast<float>(rand() % renderTarget_.getSize().y),
+            text_,
+            cfg::Enemy::health
         ));
     }
 }

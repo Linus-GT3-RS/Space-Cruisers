@@ -2,18 +2,16 @@
 
 #include "SFML/Graphics.hpp"
 #include "Player.h"
+#include "Entity.h"
 
-class Enemy
+class Enemy : public Entity
 {
 public:
-	Enemy(float pos_x, float pos_y);
+	Enemy(float pos_x, float pos_y, sf::Texture& texture, int health);
+	virtual ~Enemy() = default;
 
-	void render(sf::RenderTarget& target) const;
-
-	const sf::FloatRect getBounds() const;
-	void moveAndRotate(const Player& target, const float dt);
+	void update(float dt) override;
 
 private:
-	sf::RectangleShape shape_;
 };
 

@@ -2,20 +2,22 @@
 
 #include <SFML/Graphics.hpp>
 
-class Bullet
+#include "Entity.h"
+
+class Bullet : public Entity
 {
 public:
-	Bullet(float pos_x, float pos_y, sf::Vector2f direc, float speed_);
+	Bullet(float pos_x, float pos_y, sf::Texture& texture, sf::Vector2f direc, float speed_, int damage);
+	
+	void update(float dt) override;
+	bool damage(int damage) override;
 
-	void render(sf::RenderTarget& target) const;
-
-	void move(const float dt);
-	const sf::Vector2f getPosition() const;
-	const sf::FloatRect getBounds() const;
+	// Getters
+	const int getDamage() const;
 
 private:
-	sf::RectangleShape shape_;
 	sf::Vector2f direc_;
 	float speed_;
+	int damage_;
 };
 

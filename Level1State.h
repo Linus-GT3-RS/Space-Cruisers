@@ -24,5 +24,8 @@ private:
 
 	void updateBullets(const float dt);
 	void updateEnemiesAndCombat(const float dt);
+
+	// Resources TODO make into own file
+	sf::Texture text_;
 };
 
