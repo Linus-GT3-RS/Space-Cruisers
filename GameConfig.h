@@ -19,9 +19,11 @@ namespace cfg
 		inline static const float width = 50.F;
 		inline static const float height = 70.F;
 
-		// Speed
+		// Settings
 		inline static const float movementSpeed = 90.F;
+		inline static const int health = 30;
 
+		// Spawner
 		inline static const int maxEnemies = 15;
 		inline static const float spawnTimerCounterMax = 0.5F;
 	};
@@ -52,6 +54,10 @@ namespace cfg
 		// Speed
 		inline static const float speed_spray = 850.F;
 		inline static const float speed_snipe = 5000.F;
+
+		// Damage
+		inline static const int dmg_spray = 10;
+		inline static const int dmg_snipe = 250;
 	};
 
 
