@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Button.h"
+#include "../Button.h"
 
-#include "Gamestate.h"
+#include "../Gamestate.h"
 #include <iostream>
 #include <stack>
 
@@ -18,7 +18,6 @@ public:
 private:
 
 	// Game Resources
-	sf::Font font_; // TODO move all resources somewhere else
 	Button btnNewGame_;
 	Button btnExit_;
 	

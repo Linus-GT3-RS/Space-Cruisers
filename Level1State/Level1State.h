@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Gamestate.h"
-#include "GameConfig.h"
+#include "../Gamestate.h"
+#include "../Config/GameConfig.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
@@ -24,8 +24,5 @@ private:
 
 	void updateBullets(const float dt);
 	void updateEnemiesAndCombat(const float dt);
-
-	// Resources TODO make into own file
-	sf::Texture text_;
 };
 

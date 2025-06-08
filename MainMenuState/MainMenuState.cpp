@@ -1,18 +1,15 @@
 #include "MainMenuState.h"
 #include <iostream>
-#include "Level1State.h"
+#include "../Level1State/Level1State.h"
+#include "../Resources/Resources.h"
 
 MainMenuState::MainMenuState(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
     Gamestate(target, gamestates), 
-    btnNewGame_(&font_, [this]() { this->gamestates_.push(new Level1State(renderTarget_, gamestates_)); }, "New Game"),
-    btnExit_(&font_, [this]() { this->isRunning_ = false; }, "Exit", 500.F, 500.F)
+    btnNewGame_(&resc::Fonts::font_arial, [this]() { this->gamestates_.push(new Level1State(renderTarget_, gamestates_)); }, "New Game"),
+    btnExit_(&resc::Fonts::font_arial, [this]() { this->isRunning_ = false; }, "Exit", 500.F, 500.F)
 {
-    // Fonts
-    if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::GAME::GAME Font loading error" << "\n";
 }
 
-#pragma warning(push)
-#pragma warning(disable: 4100) // remove
 void MainMenuState::update(const float dt)
 {
     // TODO unschön des immer machen?? oder lassen, wenn man des window später ändern kann
@@ -22,8 +19,9 @@ void MainMenuState::update(const float dt)
 
     btnNewGame_.update(mousePos_c);
     btnExit_.update(mousePos_c);
+
+    (void)dt;
 }
-#pragma warning(pop)
 
 void MainMenuState::render()
 {

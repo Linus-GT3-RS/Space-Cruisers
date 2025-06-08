@@ -1,13 +1,11 @@
 #include "Level1State.h"
-
+#include "../Resources/Resources.h"
 #include <iostream>
 
 Level1State::Level1State(sf::RenderTarget& target, std::stack<Gamestate*>& gamestates) :
     counter_(0.F), Gamestate(target, gamestates)
 {
     pPlayer_ = new Player(renderTarget_.getSize().x / 2.F, renderTarget_.getSize().y / 2.F);
-
-    if (!text_.loadFromFile("test.jpg", false, { {0, 0}, {80, 80} })) std::cout << "ERROR::Level1State::Level1State texture cant be loaded\n";
 }
 
 Level1State::~Level1State()
@@ -91,7 +89,7 @@ void Level1State::updateBullets(const float dt)
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
-            text_,
+            resc::Spaceships::textu_test,
             (Gamestate::mousePos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
             cfg::Bullet::speed_spray,
             cfg::Bullet::dmg_spray
@@ -101,7 +99,7 @@ void Level1State::updateBullets(const float dt)
     {
         bullets_.push_back(new Bullet(
             pPlayer_->getPosition().x, pPlayer_->getPosition().y,
-            text_,
+            resc::Spaceships::textu_test,
             (Gamestate::mousePos_c - sf::Vector2f{ pPlayer_->getPosition().x, pPlayer_->getPosition().y }).normalized(),
             cfg::Bullet::speed_snipe,
             cfg::Bullet::dmg_snipe
@@ -150,7 +148,7 @@ void Level1State::updateEnemiesAndCombat(const float dt)
         enemies_.push_back(new Enemy(
             static_cast<float>(rand() % renderTarget_.getSize().x),
             static_cast<float>(rand() % renderTarget_.getSize().y),
-            text_,
+            resc::Spaceships::textu_test,
             cfg::Enemy::health
         ));
     }

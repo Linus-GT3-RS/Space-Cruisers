@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-#include "GameConfig.h"
+#include "../Config/GameConfig.h"
 #include <stdexcept> // Include this header for std::runtime_error
 
 Bullet::Bullet(float pos_x, float pos_y, sf::Texture& texture, sf::Vector2f direc, float speed_, int damage) :

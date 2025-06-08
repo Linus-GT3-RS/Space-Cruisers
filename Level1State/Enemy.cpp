@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-#include "GameConfig.h"
+#include "../Config/GameConfig.h"
 
 Enemy::Enemy(float pos_x, float pos_y, sf::Texture& texture, int health) :
 	Entity(pos_x, pos_y, texture, health)

@@ -1,19 +1,18 @@
 #include "Player.h"
 
-#include "GameConfig.h"
+#include "../Config/GameConfig.h"
 #include <iostream>
+#include "../Resources/Resources.h"
 
 Player::Player(float pos_x, float pos_y) :
-	cdHyperJump_(cfg::Player::cooldownDashMax, "HyperJ", &font_, 1300.F, 800.F),
-	cdSpray_(cfg::Player::cooldownAttackSprayMax, "SprayA", &font_, 1150.F, 800.F),
-	cdSnipe_(cfg::Player::cooldownAttackSnipeMax, "SnipeA", &font_, 1000.F, 800.F)
+	cdHyperJump_(cfg::Player::cooldownDashMax, "HyperJ", &resc::Fonts::font_arial, 1300.F, 800.F),
+	cdSpray_(cfg::Player::cooldownAttackSprayMax, "SprayA", &resc::Fonts::font_arial, 1150.F, 800.F),
+	cdSnipe_(cfg::Player::cooldownAttackSnipeMax, "SnipeA", &resc::Fonts::font_arial, 1000.F, 800.F)
 {
 	shape_.setSize({ cfg::Player::width, cfg::Player::height });
 	shape_.setFillColor(sf::Color::White);
 	shape_.setPosition({ pos_x, pos_y });
 	shape_.setOrigin({ shape_.getSize().x / 2.F, shape_.getSize().y / 2.F });
-
-	if (!font_.openFromFile("Fonts/arial.ttf")) std::cout << "ERROR::Player::Player Font loading error" << "\n";
 }
 
 

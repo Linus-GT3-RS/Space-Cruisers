@@ -2,7 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "Player.h"
-#include "Entity.h"
+#include "../Entity.h"
 
 class Enemy : public Entity
 {

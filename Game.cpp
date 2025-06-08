@@ -2,10 +2,11 @@
 
 #include <iostream>
 #include <sstream>
-#include "GameConfig.h"
-#include "Level1State.h"
-#include "MainMenuState.h"
+#include "Config/GameConfig.h"
+#include "Level1State/Level1State.h"
+#include "MainMenuState/MainMenuState.h"
 #include "TestState.h"
+#include "Resources\Resources.h"
 
 Game::Game() :
     dt_(1.F)
@@ -19,6 +20,8 @@ Game::Game() :
     gamestates_.push(new TestState(*pWindow_, gamestates_));
     gamestates_.push(new MainMenuState(*pWindow_, gamestates_)); 
     gamestates_.push(new Level1State(*pWindow_, gamestates_));
+
+    resc::ResourceManager::initResources();
 }
 
 Game::~Game()

@@ -27,8 +27,6 @@ public:
 private:
 	sf::RectangleShape shape_;
 
-	sf::Font font_; // replace later TODO mb use a static resource class with getters
-
 	// Movement
 	Cooldown cdHyperJump_;
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 /*
 	Stores all Config Data
@@ -24,8 +25,8 @@ namespace cfg
 		inline static const int health = 30;
 
 		// Spawner
-		inline static const int maxEnemies = 15;
-		inline static const float spawnTimerCounterMax = 0.5F;
+		inline static const int maxEnemies = 30;
+		inline static const float spawnTimerCounterMax = 1.F;
 	};
 
 

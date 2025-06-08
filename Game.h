@@ -21,7 +21,7 @@ private:
 	float dt_;
 
 	// Gamestate
-	std::stack<Gamestate*> gamestates_; // TODO mb alle pointer in diesen containern in referenzen?
+	std::stack<Gamestate*> gamestates_; // TODO mb alle pointer in all diesen containern in referenzen umwandeln?
 
 	// Functions
 	void pollEvents();
