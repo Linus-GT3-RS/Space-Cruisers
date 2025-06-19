@@ -2,5 +2,6 @@
 
 enum AnimationType
 {
-	PLAYER_IDLE, PLAYER_MOVING
+	PLAYER_IDLE, PLAYER_MOVING,
+	INVALID
 };
