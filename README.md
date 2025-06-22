@@ -1,5 +1,8 @@
 # Space Cruisers
 
+## Framework
+- https://www.sfml-dev.org/license/
+
 ## Used Assets
 - https://foozlecc.itch.io/void-fleet-pack-1
 - https://foozlecc.itch.io/void-fleet-pack-2
