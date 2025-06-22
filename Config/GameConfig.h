@@ -61,5 +61,11 @@ namespace cfg
 		inline static const int dmg_snipe = 250;
 	};
 
+	struct Animation
+	{
+		inline static const float timer_max = 2.f;
+		inline static const float anim_speed = 10.f;
+	};
+
 
 }

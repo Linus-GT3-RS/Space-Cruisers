@@ -1,4 +1,5 @@
 #include "Animation.h"
+#include "../Config/GameConfig.h"
 
 Animation::Animation(sf::Sprite& sprite, sf::Texture& animSheet,
 					 sf::IntRect startFrame, int frameWidth, int numFrames) :
@@ -10,8 +11,8 @@ Animation::Animation(sf::Sprite& sprite, sf::Texture& animSheet,
 
 void Animation::update(float dt)
 {
-	curTimer_ += 10.F * dt; // TODO magic number
-	if (curTimer_ >= 2.F) // TODO magic number // play next frame
+	curTimer_ += cfg::Animation::anim_speed * dt; 
+	if (curTimer_ >= cfg::Animation::timer_max) // play next frame
 	{
 		curTimer_ = 0.F; // reset timer
 
