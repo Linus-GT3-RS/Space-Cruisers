@@ -1,6 +1,6 @@
 # Space Cruisers
 
-## Framework
+## Frameworks / Libraries
 - https://www.sfml-dev.org/license/
 
 ## Used Assets
