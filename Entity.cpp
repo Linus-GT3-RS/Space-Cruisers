@@ -1,25 +1,19 @@
 #include "Entity.h"
 
-Entity::Entity(float pos_x, float pos_y, sf::Texture& texture, int health) :
-	sprite_(texture),
+Entity::Entity(float pos_x, float pos_y, int health) :
 	health_(health)
 {
-	sprite_.setPosition({ pos_x, pos_y });
-}
-
-void Entity::render(sf::RenderTarget& target)
-{
-	target.draw(sprite_);
+	shape_.setPosition({ pos_x, pos_y });
 }
 
 void Entity::move(sf::Vector2f dir)
 {
-	sprite_.move(dir);
+	shape_.move(dir);
 }
 
 void Entity::setRotation(sf::Angle angle)
 {
-	sprite_.setRotation(angle);
+	shape_.setRotation(angle);
 }
 
 bool Entity::damage(int damage)
@@ -30,5 +24,5 @@ bool Entity::damage(int damage)
 
 sf::FloatRect Entity::getGlobalBounds() const
 {
-	return sprite_.getGlobalBounds();
+	return shape_.getGlobalBounds();
 }

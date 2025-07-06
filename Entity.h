@@ -5,11 +5,11 @@
 class Entity
 {
 public:
-	Entity(float pos_x, float pos_y, sf::Texture& texture, int health);
+	Entity(float pos_x, float pos_y, int health);
 	virtual ~Entity() = default;
 
 	virtual void update(float dt) = 0;
-	virtual void render(sf::RenderTarget& target);
+	virtual void render(sf::RenderTarget& target) = 0;
 
 	void move(sf::Vector2f dir);
 	void setRotation(sf::Angle angle);
@@ -20,7 +20,7 @@ public:
 	sf::FloatRect getGlobalBounds() const;
 
 private:
-	sf::Sprite sprite_;
+	sf::RectangleShape shape_; 
 
 	int health_;
 };
