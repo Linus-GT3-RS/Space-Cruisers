@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Animations\Animation.cpp" />
     <ClCompile Include="Animations\AnimationComponent.cpp" />
+    <ClCompile Include="LayeredTextureComponent.cpp" />
     <ClCompile Include="Level1State\Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Level1State\Cooldown.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Animations\Animation.h" />
     <ClInclude Include="Animations\AnimationComponent.h" />
     <ClInclude Include="Animations\AnimationTypes.h" />
+    <ClInclude Include="LayeredTextureComponent.h" />
     <ClInclude Include="Resources\Resources.h" />
     <ClInclude Include="Level1State\Bullet.h" />
     <ClInclude Include="Button.h" />
